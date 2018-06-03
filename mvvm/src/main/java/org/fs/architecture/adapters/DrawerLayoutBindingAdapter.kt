@@ -31,7 +31,7 @@ class DrawerLayoutBindingAdapter private constructor() {
 
   companion object {
 
-    @BindingAdapter(value = ["bindings:open"])
+    @BindingAdapter(value = ["open"])
     @JvmStatic
     fun drawerLayoutBindOpen(drawerLayout: DrawerLayout, open: Boolean) {
       val currentState = drawerOpen(drawerLayout)
@@ -46,12 +46,12 @@ class DrawerLayoutBindingAdapter private constructor() {
       }
     }
 
-    @InverseBindingAdapter(attribute = "bindings:open", event = "bindings:openAttrChanged")
+    @InverseBindingAdapter(attribute = "open", event = "openAttrChanged")
     @JvmStatic
     fun drawerLayoutBindOpen(drawerLayout: DrawerLayout): Boolean = drawerOpen(drawerLayout)
 
     @BindingAdapter(
-        value = ["bindings:slided", "bindings:openOrClose", "bindings:stateChanged", "bindings:openAttrChanged"], requireAll = false)
+        value = ["slided", "openOrClose", "stateChanged", "openAttrChanged"], requireAll = false)
     @JvmStatic
     fun drawableLayoutBindListener(drawerLayout: DrawerLayout, slided: OnLayoutSlided?,
         openStateChanged: OnLayoutOpenStateChanged?, stateChanged: OnLayoutStateChanged?,

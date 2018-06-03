@@ -25,28 +25,28 @@ class RecyclerViewBindingAdapter private constructor() {
 
   companion object {
 
-    @BindingAdapter("bindings:itemSource")
+    @BindingAdapter("itemSource")
     @JvmStatic fun <T> recyclerViewBindItemSource(viewRecycler: RecyclerView, adapter: AbstractRecyclerViewAdapter<T>?) {
       viewRecycler.adapter = adapter
     }
 
-    @BindingAdapter("bindings:layoutManager", "bindings:fixedSize")
+    @BindingAdapter("layoutManager", "fixedSize")
     @JvmStatic fun recyclerViewBindLayoutManager(viewRecycler: RecyclerView, layoutManager: RecyclerView.LayoutManager?, fixedSize: Boolean = true) {
       viewRecycler.setHasFixedSize(fixedSize)
       viewRecycler.layoutManager = layoutManager
     }
 
-    @BindingAdapter("bindings:itemTouchHelper")
+    @BindingAdapter("itemTouchHelper")
     @JvmStatic fun recyclerViewBindItemTouchHelper(viewRecycler: RecyclerView, touchHelper: ItemTouchHelper) {
       touchHelper.attachToRecyclerView(viewRecycler)
     }
 
-    @BindingAdapter("bindings:itemAnimator")
+    @BindingAdapter("itemAnimator")
     @JvmStatic fun recyclerViewBindItemAnimator(viewRecycler: RecyclerView, itemAnimator: RecyclerView.ItemAnimator) {
       viewRecycler.itemAnimator = itemAnimator
     }
 
-    @BindingAdapter("bindings:cacheSize")
+    @BindingAdapter("cacheSize")
     @JvmStatic fun recyclerViewBindCache(viewRecycler: RecyclerView, cacheSize: Int = 0) {
       if (cacheSize != 0) {
         viewRecycler.destroyDrawingCache()

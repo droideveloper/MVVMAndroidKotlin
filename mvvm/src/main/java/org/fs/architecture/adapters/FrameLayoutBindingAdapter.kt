@@ -44,7 +44,7 @@ class FrameLayoutBindingAdapter private constructor() {
     }
     */
 
-    @BindingAdapter(value = ["bindings:fragment", "bindings:fragmentManager"])
+    @BindingAdapter(value = ["fragment", "fragmentManager"])
     @JvmStatic fun frameLayoutBindFragment(frameLayout: FrameLayout, fragment: Fragment?, fragmentManager: FragmentManager?) {
       if (frameLayout.id == -1) {
         frameLayout.id = R.id.viewContentLayout

@@ -25,17 +25,17 @@ class SwipeRefreshLayoutBindingAdapter private constructor() {
 
   companion object {
 
-    @InverseBindingAdapter(attribute = "bindings:refreshing", event = "bindings:refreshingAttrChanged")
+    @InverseBindingAdapter(attribute = "refreshing", event = "refreshingAttrChanged")
     @JvmStatic fun swipeRefreshLayoutRefreshing(viewSwipe: SwipeRefreshLayout): Boolean {
       return viewSwipe.isRefreshing
     }
 
-    @BindingAdapter(value = ["bindings:refreshing"])
+    @BindingAdapter(value = ["refreshing"])
     @JvmStatic fun swipeRefreshLayoutBindRehreshing(viewSwipe: SwipeRefreshLayout, refreshing: Boolean) {
       viewSwipe.isRefreshing = refreshing
     }
 
-    @BindingAdapter(value = ["bindings:callback", "bindings:refreshingAttrChanged"])
+    @BindingAdapter(value = ["callback", "refreshingAttrChanged"])
     @JvmStatic fun swipeRefreshLayoutBindCallback(viewSwipe: SwipeRefreshLayout, refreshed: OnRefreshed?, refreshingAttr: InverseBindingListener?) {
       var newListener: SwipeRefreshLayout.OnRefreshListener? = null
       if (refreshed != null || refreshingAttr != null) {

@@ -40,7 +40,7 @@ class ViewBindingAdapter private constructor() {
 
   companion object {
 
-    @BindingAdapter(value = ["bindings:anim", "bindings:interpolator", "bindings:animListener"], requireAll = false)
+    @BindingAdapter(value = ["anim", "interpolator", "animListener"], requireAll = false)
     @JvmStatic fun viewBindAnimation(view: View, @AnimRes animRes: Int, interpolator: Interpolator?, callback: Animation.AnimationListener?) {
       val animation = AnimationUtils.loadAnimation(view.context, animRes)
       if (animation != null) {
@@ -55,7 +55,7 @@ class ViewBindingAdapter private constructor() {
       }
     }
 
-    @BindingAdapter(value = ["bindings:animator", "bindings:interpolator", "bindings:animatorListener"], requireAll = false)
+    @BindingAdapter(value = ["animator", "interpolator", "animatorListener"], requireAll = false)
     @JvmStatic fun viewBindAnimator(view: View, @AnimatorRes animatorRes: Int, interpolator: Interpolator?, callback: Animator.AnimatorListener?) {
       val animator = AnimatorInflater.loadAnimator(view.context, animatorRes)
       if (animator != null) {
@@ -70,7 +70,7 @@ class ViewBindingAdapter private constructor() {
       }
     }
 
-    @BindingAdapter(value = ["bindings:notifyText"])
+    @BindingAdapter(value = ["notifyText"])
     @JvmStatic fun <S> viewBindSnackbar(view: View, text: S) where S: CharSequence {
       if (text.isNotEmpty()) {
         Snackbar.make(view, text, Snackbar.LENGTH_LONG)
@@ -78,7 +78,7 @@ class ViewBindingAdapter private constructor() {
       }
     }
 
-    @BindingAdapter(value = ["bindings:notifyText", "bindings:actionText", "bindings:relayCommand"])
+    @BindingAdapter(value = ["notifyText", "actionText", "relayCommand"])
     @JvmStatic fun <S> viewBindSnackbar(view: View, text: S, action: S, command: RelayCommandType) where S: CharSequence {
       if (text.isNotEmpty()) {
         Snackbar.make(view, text, Snackbar.LENGTH_LONG)
@@ -86,7 +86,7 @@ class ViewBindingAdapter private constructor() {
       }
     }
 
-    @BindingAdapter(value = ["bindings:command", "bindings:commandParameter"], requireAll = false)
+    @BindingAdapter(value = ["command", "commandParameter"], requireAll = false)
     @JvmStatic fun <T> viewBindCommand(view: View, command: CommandType<T>?, parameter: T?) {
       if (command != null) {
         val oldListener = ListenerUtil.getListener<View.OnClickListener>(view, R.id.clickListener)
@@ -100,7 +100,7 @@ class ViewBindingAdapter private constructor() {
       }
     }
 
-    @BindingAdapter(value = ["bindings:bottomSheetState"])
+    @BindingAdapter(value = ["bottomSheetState"])
     @JvmStatic fun viewBindBottomSheetBehaviorState(view: View, state: Int) {
       if (state != 0) {
         val lp = view.layoutParams as? CoordinatorLayout.LayoutParams
@@ -113,10 +113,10 @@ class ViewBindingAdapter private constructor() {
       }
     }
 
-    @BindingAdapter(value = ["bindings:touchCallback"])
+    @BindingAdapter(value = ["touchCallback"])
     @JvmStatic fun viewBindTouchListener(view: View, callback: View.OnTouchListener?) = view.setOnTouchListener(callback)
 
-    @BindingAdapter(value = ["bindings:hideable", "bindings:peekHeight", "bindings:stateChange", "bindings:slided"], requireAll = false)
+    @BindingAdapter(value = ["hideable", "peekHeight", "stateChange", "slided"], requireAll = false)
     @JvmStatic fun viewBindBottomSheetBehavior(view: View, hideable: Boolean?, peekHeight: Int?, stateChange: OnLayoutStateChanged?, slided: OnLayoutSlided?) {
       if (hideable != null || peekHeight != null || stateChange != null || slided != null) {
         val behavior = BottomSheetBehavior.from(view)
@@ -140,12 +140,12 @@ class ViewBindingAdapter private constructor() {
       }
     }
 
-    @BindingAdapter(value = ["bindings:visibility"])
+    @BindingAdapter(value = ["visibility"])
     @JvmStatic fun viewBindVisibility(view: View, visibility: Boolean) {
       view.visibility = if (visibility) View.VISIBLE else View.GONE
     }
 
-    @BindingAdapter(value = ["bindings:indeterminate"])
+    @BindingAdapter(value = ["indeterminate"])
     @JvmStatic fun progressBarBindIndeterminate(progressBar: ProgressBar, indeterminate: Boolean) {
       progressBar.isIndeterminate = indeterminate
     }

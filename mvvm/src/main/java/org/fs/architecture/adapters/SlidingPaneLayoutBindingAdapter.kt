@@ -27,7 +27,7 @@ class SlidingPaneLayoutBindingAdapter private constructor() {
 
   companion object {
 
-    @BindingAdapter(value = ["bindings:open"])
+    @BindingAdapter(value = ["open"])
     @JvmStatic
     fun slidingPaneLayoutBindOpen(slidingPaneLayout: SlidingPaneLayout, open: Boolean) {
       if (slidingPaneLayout.isOpen != open) {
@@ -39,13 +39,13 @@ class SlidingPaneLayoutBindingAdapter private constructor() {
       }
     }
 
-    @InverseBindingAdapter(attribute = "bindings:open", event = "bindings:openAttrChanged")
+    @InverseBindingAdapter(attribute = "open", event = "openAttrChanged")
     @JvmStatic
     fun slidingPaneLayoutBindOpen(
         slidingPaneLayout: SlidingPaneLayout): Boolean = slidingPaneLayout.isOpen
 
     @BindingAdapter(
-        value = ["bindings:slided", "bindings:openState", "bindings:openAttrChanged"],
+        value = ["slided", "openState", "openAttrChanged"],
         requireAll = false)
     @JvmStatic
     fun slidingPaneLayoutBindSlidedListener(slidingPaneLayout: SlidingPaneLayout,

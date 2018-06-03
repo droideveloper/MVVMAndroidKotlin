@@ -32,12 +32,12 @@ class TextViewBindingAdapter private constructor() {
 
   companion object {
 
-    @BindingAdapter(value = ["bindings:imeOptions"])
+    @BindingAdapter(value = ["imeOptions"])
     @JvmStatic fun textViewBindImeOptions(viewText: TextView, imeOptions: Int) {
       viewText.imeOptions = imeOptions
     }
 
-    @BindingAdapter(value = ["bindngs:softKeyboardAction"])
+    @BindingAdapter(value = ["softKeyboardAction"])
     @JvmStatic fun textViewBindSoftKeyboardAction(viewText: TextView, keyboardAction: OnSoftKeyboardAction?) {
       if (keyboardAction == null) {
         viewText.setOnEditorActionListener(null)
@@ -46,7 +46,7 @@ class TextViewBindingAdapter private constructor() {
       }
     }
 
-    @BindingAdapter(value = ["bindings:value", "bindings:converter"], requireAll = false)
+    @BindingAdapter(value = ["value", "converter"], requireAll = false)
     @JvmStatic fun <T, S> textViewBindText(viewText: TextView, value: T, converter: ConverterType<T, S>?) where S: CharSequence {
       if (converter == null) {
         if (value is CharSequence) {
@@ -58,7 +58,7 @@ class TextViewBindingAdapter private constructor() {
       }
     }
 
-    @BindingAdapter(value = ["bindings:beforeChanged", "bindings:afterChanged", "bindings:textAttrChanged"], requireAll = false)
+    @BindingAdapter(value = ["beforeChanged", "afterChanged", "textAttrChanged"], requireAll = false)
     @JvmStatic fun textViewBindTextWatcher(viewText: TextView, beforeChanged: OnBeforeChanged?, afterChanged: OnAfterChanged?, textAttrChanged: InverseBindingListener?) {
       var newTextWatcher: TextWatcher? = null
       if (textAttrChanged != null || beforeChanged != null || afterChanged != null) {

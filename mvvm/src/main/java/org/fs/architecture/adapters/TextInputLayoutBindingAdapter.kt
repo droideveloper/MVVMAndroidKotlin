@@ -32,13 +32,13 @@ class TextInputLayoutBindingAdapter private constructor() {
 
   companion object {
 
-    @BindingAdapter(value = ["bindings:hint"])
+    @BindingAdapter(value = ["hint"])
     @JvmStatic fun <S> textInputLayoutBindHint(textInputLayout: TextInputLayout, hint: S) where S: CharSequence {
       textInputLayout.hint = hint
       textInputLayout.isHintEnabled = true
     }
 
-    @BindingAdapter(value = ["bindings:error", "bindings:validator"])
+    @BindingAdapter(value = ["error", "validator"])
     @JvmStatic fun <S> textInputLayoutBindError(textInputLayout: TextInputLayout, error: S?, validator: ValidatorType<String>?) where S: CharSequence {
       val textView = textView(textInputLayout)
       if (textView != null) {

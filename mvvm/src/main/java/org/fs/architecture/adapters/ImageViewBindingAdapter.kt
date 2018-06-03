@@ -26,7 +26,7 @@ class ImageViewBindingAdapter private constructor() {
 
   companion object {
 
-    @BindingAdapter(value = ["bindings:imageUrl", "bindings:placeholder", "bindings:error"], requireAll = false)
+    @BindingAdapter(value = ["imageUrl", "placeholder", "error"], requireAll = false)
     @JvmStatic fun viewImageBindUrl(viewImage: ImageView, imageUrl: String?, placeholder: Drawable?, error: Drawable?) {
       if (imageUrl != null) {
         var request = Glide.with(viewImage.context)
@@ -43,7 +43,7 @@ class ImageViewBindingAdapter private constructor() {
       }
     }
 
-    @BindingAdapter(value = ["bindings:imageUrl", "bindings:glideTarget"])
+    @BindingAdapter(value = ["imageUrl", "glideTarget"])
     @JvmStatic fun viewImageBindBitmapUrl(viewImage: ImageView, imageUrl: String?, glideTarget: GlideTargetType?) {
       if (imageUrl != null) {
         val request = Glide.with(viewImage.context)

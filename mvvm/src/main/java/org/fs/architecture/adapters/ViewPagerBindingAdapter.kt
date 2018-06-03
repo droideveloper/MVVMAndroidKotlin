@@ -36,21 +36,21 @@ class ViewPagerBindingAdapter private constructor() {
 
   companion object {
 
-    @InverseBindingAdapter(attribute = "bindings:selectedPage", event = "bindings:selectedPageAttrChanged")
+    @InverseBindingAdapter(attribute = "selectedPage", event = "selectedPageAttrChanged")
     @JvmStatic fun viewPagerBindSelectedPage(viewPager: ViewPager): Int = viewPager.currentItem
 
-    @BindingAdapter(value = ["bindings:selectedPage"])
+    @BindingAdapter(value = ["selectedPage"])
     @JvmStatic fun viewPagerBindSelectedPage(viewPager: ViewPager, selectedPage: Int) {
       viewPager.setCurrentItem(selectedPage, true)
     }
 
-    @InverseBindingAdapter(attribute = "bindings:selectedItem", event = "bindings:selectedItemAttrChanged")
+    @InverseBindingAdapter(attribute = "selectedItem", event = "selectedItemAttrChanged")
     @JvmStatic fun <T> viewPagerBindSelectedItem(viewPager: ViewPager): T? {
       val property = Properties.getPropertyInfo<T>(viewPager, R.id.viewPagerSelectedItem)
       return property?.value
     }
 
-    @BindingAdapter(value = ["bindings:selectedItem"])
+    @BindingAdapter(value = ["selectedItem"])
     @JvmStatic fun <T> viewPagerBindSelectedItem(viewPager: ViewPager, item: T?) {
       var property = Properties.getPropertyInfo<T>(viewPager, R.id.viewPagerSelectedItem)
       if (property != null) {
@@ -63,21 +63,21 @@ class ViewPagerBindingAdapter private constructor() {
       Properties.setPropertyInfo(viewPager, property, R.id.viewPagerSelectedItem)
     }
 
-    @BindingAdapter(value = ["bindings:pageTransformer"])
+    @BindingAdapter(value = ["pageTransformer"])
     @JvmStatic fun viewPagerBindPageTransformer(viewPager: ViewPager, pageTransformer: ViewPager.PageTransformer?) {
       viewPager.setPageTransformer(false, pageTransformer)
     }
 
-    @BindingAdapter(value = ["bindings:itemSource"])
+    @BindingAdapter(value = ["itemSource"])
     @JvmStatic fun viewPagerBindItemSource(viewPager: ViewPager, itemSource: PagerAdapter) {
       viewPager.adapter = itemSource
     }
 
-    @BindingAdapter(value = ["bindings:pageScrolled",
-        "bindings:pageSelected",
-        "bindings:pageScrollStateChanged",
-        "bindings:selectedPageAttrChanged",
-        "bindings:selectedItemAttrChanged"], requireAll = false)
+    @BindingAdapter(value = ["pageScrolled",
+        "pageSelected",
+        "pageScrollStateChanged",
+        "selectedPageAttrChanged",
+        "selectedItemAttrChanged"], requireAll = false)
     @JvmStatic fun viewPagerBindPageChangeListener(viewPager: ViewPager, pageScrolled: OnPageScrolled?, pageSelected: OnPageSelected?, pageScrollStateChanged: OnPageScrollStateChanged?, selectedPageAttr: InverseBindingListener?, selectedItemAttr: InverseBindingListener?) {
       var newPageChangeListener: ViewPager.OnPageChangeListener? = null
       if (pageSelected != null || pageScrolled != null || pageScrollStateChanged != null || selectedPageAttr != null || selectedItemAttr != null) {

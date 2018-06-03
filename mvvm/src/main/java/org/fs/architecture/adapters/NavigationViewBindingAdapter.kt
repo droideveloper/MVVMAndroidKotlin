@@ -26,7 +26,7 @@ class NavigationViewBindingAdapter private constructor() {
   companion object {
     private val NO_ID = -1
 
-    @BindingAdapter(value = ["bindings:selectedItem"])
+    @BindingAdapter(value = ["selectedItem"])
     @JvmStatic fun viewNavigationBindSelectedItem(viewNavigation: NavigationView, menuItemRes: Int = NO_ID) {
       if (menuItemRes != NO_ID) {
         val menu = viewNavigation.menu
@@ -37,7 +37,7 @@ class NavigationViewBindingAdapter private constructor() {
       }
     }
 
-    @InverseBindingAdapter(attribute = "bindings:selectedItem", event = "bindings:selectedItemAttrChanged")
+    @InverseBindingAdapter(attribute = "selectedItem", event = "selectedItemAttrChanged")
     @JvmStatic fun viewNavigationBindSelectedItem(viewNavigation: NavigationView): Int {
       val menu = viewNavigation.menu
       (0..menu.size())
@@ -47,7 +47,7 @@ class NavigationViewBindingAdapter private constructor() {
       return NO_ID
     }
 
-    @BindingAdapter(value = ["bindings:onNavigationSelected", "bindings:selectedItemAttrChanged"], requireAll = false)
+    @BindingAdapter(value = ["onNavigationSelected", "selectedItemAttrChanged"], requireAll = false)
     @JvmStatic fun viewNavigationBindOnNavigationSelected(viewNavigation: NavigationView, navigationSelected: OnNavigationSelected?, selectedItemAttr: InverseBindingListener?) {
       if (navigationSelected != null || selectedItemAttr != null) {
         viewNavigation.setNavigationItemSelectedListener { item ->

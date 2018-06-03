@@ -26,22 +26,22 @@ class ToolbarBindingAdapter private constructor() {
 
   companion object {
 
-    @BindingAdapter(value = ["bindings:icon"])
+    @BindingAdapter(value = ["icon"])
     @JvmStatic fun toolbarBindIcon(viewToolbar: Toolbar, drawable: Drawable) {
       viewToolbar.navigationIcon = drawable
     }
 
-    @BindingAdapter(value = ["bindings:title"])
+    @BindingAdapter(value = ["title"])
     @JvmStatic fun <S> toolbarBindTitle(viewToolbar: Toolbar, title: S) where S: CharSequence {
       viewToolbar.title = title
     }
 
-    @BindingAdapter(value = ["bindings:subTitle"])
+    @BindingAdapter(value = ["subTitle"])
     @JvmStatic fun <S> toolbarBindSubTitle(viewToolbar: Toolbar, subTitle: S) where S: CharSequence {
       viewToolbar.subtitle = subTitle
     }
 
-    @BindingAdapter(value = ["bindings:menu", "bindings:menuListener"], requireAll = false)
+    @BindingAdapter(value = ["menu", "menuListener"], requireAll = false)
     @JvmStatic fun toolbarBindMenu(viewToolbar: Toolbar, @MenuRes menuRes: Int, callback: Toolbar.OnMenuItemClickListener?) {
       viewToolbar.inflateMenu(menuRes)
       if (callback != null) {
@@ -49,7 +49,7 @@ class ToolbarBindingAdapter private constructor() {
       }
     }
 
-    @BindingAdapter(value = ["bindings:onNavigated", "bindings:navigationCommand", "bindings:navigationCommandParameter"], requireAll = false)
+    @BindingAdapter(value = ["onNavigated", "navigationCommand", "navigationCommandParameter"], requireAll = false)
     @JvmStatic fun <T> toolbarBindNavigationListener(viewToolbar: Toolbar, callback: OnNavigated?, command: CommandType<T>? , commandParameter: T?) {
       if (callback == null && command == null && commandParameter == null) {
         viewToolbar.setNavigationOnClickListener(null)

@@ -25,7 +25,7 @@ class AbsListViewBindingAdapter private constructor() {
 
   companion object {
 
-    @BindingAdapter("bindings:drawingCacheEnabled")
+    @BindingAdapter("drawingCacheEnabled")
     @JvmStatic fun absListViewCacheSize(absListView: AbsListView, enabled: Boolean = false) {
       if (!enabled) {
         absListView.destroyDrawingCache()
@@ -36,27 +36,27 @@ class AbsListViewBindingAdapter private constructor() {
       }
     }
 
-    @BindingAdapter("bindings:itemSource")
+    @BindingAdapter("itemSource")
     @JvmStatic fun <T> absListViewBindAdapter(absListView: AbsListView, adapter: AbstractListAdapter<T>?) {
       absListView.adapter = adapter
     }
 
-    @BindingAdapter("bindings:scrollListener")
+    @BindingAdapter("scrollListener")
     @JvmStatic fun absListViewBindScrollListener(absListView: AbsListView, listener: AbsListView.OnScrollListener) {
       absListView.setOnScrollListener(listener)
     }
 
-    @BindingAdapter("bindings:itemClickListener")
+    @BindingAdapter("itemClickListener")
     @JvmStatic fun absListViewClickListener(absListView: AbsListView, listener: AdapterView.OnItemClickListener) {
       absListView.onItemClickListener = listener
     }
 
-    @BindingAdapter("bindings:itemSelectedListener")
+    @BindingAdapter("itemSelectedListener")
     @JvmStatic fun absListViewSelectedListener(absListView: AbsListView, listener: AdapterView.OnItemSelectedListener) {
       absListView.onItemSelectedListener = listener
     }
 
-    @BindingAdapter("bindings:itemLongClickListener")
+    @BindingAdapter("itemLongClickListener")
     @JvmStatic fun absListViewLongClickListener(absListView: AbsListView, listener: AdapterView.OnItemLongClickListener) {
       absListView.onItemLongClickListener = listener
     }

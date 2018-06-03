@@ -26,7 +26,7 @@ class ViewGroupBindingAdapter private constructor() {
 
   companion object {
 
-    @BindingAdapter(value = ["bindings:populate", "bindings:model", "bindings:variableId"])
+    @BindingAdapter(value = ["populate", "model", "variableId"])
     @JvmStatic fun viewGroupBindingAdapter(viewGroup: ViewGroup, @LayoutRes layoutRes: Int, viewModel: Any, variableId: Int) {
       if (layoutRes != 0) {
         // viewGroup.removeAllViews()
