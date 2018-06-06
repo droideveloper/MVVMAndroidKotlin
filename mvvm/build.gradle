@@ -35,7 +35,7 @@ dependencies {
   implementation "com.android.support:support-v4:$supportVersion"
   implementation "com.android.support:design:$supportVersion"
 
-  implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+  implementation "com.squareup.okhttp3:logging-interceptor:$okHttpInterceptorVersion"
 
   implementation "io.reactivex.rxjava2:rxandroid:$androidRxJava2Version"
   implementation "io.reactivex.rxjava2:rxjava:$rxJava2Version"
