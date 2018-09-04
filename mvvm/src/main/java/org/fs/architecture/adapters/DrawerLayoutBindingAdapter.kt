@@ -27,7 +27,7 @@ import org.fs.architecture.listeners.OnLayoutOpenStateChanged
 import org.fs.architecture.listeners.OnLayoutSlided
 import org.fs.architecture.listeners.OnLayoutStateChanged
 
-class DrawerLayoutBindingAdapter private constructor() {
+sealed class DrawerLayoutBindingAdapter {
 
   companion object {
 

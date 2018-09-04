@@ -98,7 +98,7 @@ abstract class AbstractActivity<VM>: AppCompatActivity() where VM: AbstractViewM
 
   fun isAvailable(): Boolean = !isFinishing
 
-  fun getContext(): Context = this
+  fun getContext(): Context? = this
 
   fun view(): View? = findViewById(android.R.id.content)
 }

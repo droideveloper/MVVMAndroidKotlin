@@ -21,7 +21,7 @@ import android.databinding.InverseBindingListener
 import android.support.v4.widget.SwipeRefreshLayout
 import org.fs.architecture.listeners.OnRefreshed
 
-class SwipeRefreshLayoutBindingAdapter private constructor() {
+sealed class SwipeRefreshLayoutBindingAdapter {
 
   companion object {
 

@@ -36,7 +36,7 @@ import org.fs.architecture.listeners.OnLayoutSlided
 import org.fs.architecture.listeners.OnLayoutStateChanged
 
 
-class ViewBindingAdapter private constructor() {
+sealed class ViewBindingAdapter {
 
   companion object {
 

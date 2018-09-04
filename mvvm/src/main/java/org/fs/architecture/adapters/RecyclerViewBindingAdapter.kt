@@ -21,7 +21,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
 import org.fs.architecture.common.AbstractRecyclerViewAdapter
 
-class RecyclerViewBindingAdapter private constructor() {
+sealed class RecyclerViewBindingAdapter {
 
   companion object {
 

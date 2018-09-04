@@ -31,7 +31,7 @@ import org.fs.architecture.model.PropertyInfo
 import org.fs.architecture.util.Properties
 
 
-class ViewPagerBindingAdapter private constructor() {
+sealed class ViewPagerBindingAdapter {
 
 
   companion object {

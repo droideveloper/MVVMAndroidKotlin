@@ -18,19 +18,16 @@ package org.fs.architecture.util
 import android.view.View
 import org.fs.architecture.model.PropertyInfo
 
-class Properties private constructor() {
+sealed class Properties {
 
   companion object {
 
-    fun <T> getPropertyInfo(view: View, propertyId: Int): PropertyInfo<T>? {
+    @JvmStatic fun <T> getPropertyInfo(view: View, propertyId: Int): PropertyInfo<T>? {
       val tag = view.getTag(propertyId)
-      if (tag != null) {
-        return tag as? PropertyInfo<T>
-      }
-      return null
+      return tag as? PropertyInfo<T>
     }
 
-    fun <T> setPropertyInfo(view: View, property: PropertyInfo<T>?, propertyId: Int) {
+    @JvmStatic fun <T> setPropertyInfo(view: View, property: PropertyInfo<T>?, propertyId: Int) {
       view.setTag(propertyId, property)
     }
   }

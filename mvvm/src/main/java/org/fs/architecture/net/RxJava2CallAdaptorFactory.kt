@@ -30,7 +30,7 @@ class RxJava2CallAdaptorFactory(private val scheduler: Scheduler?, private val a
     fun async(): RxJava2CallAdaptorFactory = RxJava2CallAdaptorFactory(null, true)
   }
 
-  override fun get(returnType: Type?, annotations: Array<out Annotation>?, retrofit: Retrofit?): CallAdapter<*, *> {
+  override fun get(returnType: Type, annotations: Array<out Annotation>?, retrofit: Retrofit?): CallAdapter<*, *> {
     val rawType = getRawType(returnType)
     if (rawType == Completable::class.java) {
       return RxJava2CallAdapter<Any>(Void::class.java, scheduler, async, false, true, false, false, false, true)

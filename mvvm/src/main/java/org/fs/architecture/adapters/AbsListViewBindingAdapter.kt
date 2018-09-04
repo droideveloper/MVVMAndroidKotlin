@@ -21,7 +21,7 @@ import android.widget.AbsListView
 import android.widget.AdapterView
 import org.fs.architecture.common.AbstractListAdapter
 
-class AbsListViewBindingAdapter private constructor() {
+sealed class AbsListViewBindingAdapter {
 
   companion object {
 

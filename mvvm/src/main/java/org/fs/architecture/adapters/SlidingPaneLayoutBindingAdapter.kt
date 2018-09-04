@@ -23,7 +23,7 @@ import android.view.View
 import org.fs.architecture.listeners.OnLayoutOpenStateChanged
 import org.fs.architecture.listeners.OnLayoutSlided
 
-class SlidingPaneLayoutBindingAdapter private constructor() {
+sealed class SlidingPaneLayoutBindingAdapter {
 
   companion object {
 

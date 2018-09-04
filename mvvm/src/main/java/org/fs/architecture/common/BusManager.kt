@@ -20,7 +20,7 @@ import io.reactivex.functions.Consumer
 import io.reactivex.subjects.PublishSubject
 import org.fs.architecture.model.EventType
 
-class BusManager private constructor() {
+class BusManager private constructor(){
 
   companion object {
     private val IMPL = BusManager()

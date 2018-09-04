@@ -36,5 +36,5 @@ interface ViewType {
 
   fun getStringResource(stringRes: Int): String?
   fun isAvailable(): Boolean
-  fun getContext(): Context
+  fun getContext(): Context?
 }

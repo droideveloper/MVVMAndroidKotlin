@@ -21,12 +21,9 @@ import android.view.View
 
 abstract class AbstractRecyclerViewHolder<T>(protected val viewDataBinding: ViewDataBinding): RecyclerView.ViewHolder(viewDataBinding.root) {
 
-  protected var dataSet: T? = null
-
   protected fun view(): View = itemView
 
   open fun setVariable(variableId: Int, variable: T) {
-    dataSet = variable
     viewDataBinding.setVariable(variableId, variable)
     viewDataBinding.executePendingBindings()
   }

@@ -28,7 +28,7 @@ import org.fs.architecture.listeners.SimpleTextWatcher
 import org.fs.architecture.model.ValidatorType
 import java.util.*
 
-class TextInputLayoutBindingAdapter private constructor() {
+sealed class TextInputLayoutBindingAdapter {
 
   companion object {
 

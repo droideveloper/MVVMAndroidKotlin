@@ -21,7 +21,7 @@ import android.support.v4.app.FragmentManager
 import android.widget.FrameLayout
 import org.fs.architecture.R
 
-class FrameLayoutBindingAdapter private constructor() {
+sealed class FrameLayoutBindingAdapter {
 
   companion object {
     /*

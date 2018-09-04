@@ -13,15 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fs.architecture.common
+package org.fs.architecture.util
 
-import android.databinding.BaseObservable
-import android.os.Parcel
-import android.os.Parcelable
+import com.bumptech.glide.annotation.GlideModule
+import com.bumptech.glide.module.AppGlideModule
 
-abstract class AbstractEntity: BaseObservable(), Parcelable {
-
-  abstract fun readParcel(input: Parcel?)
-  override fun describeContents(): Int = 0
-
-}
+@GlideModule class MVVMGlideModule: AppGlideModule()

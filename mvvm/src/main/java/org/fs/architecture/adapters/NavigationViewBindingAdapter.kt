@@ -21,7 +21,7 @@ import android.databinding.InverseBindingListener
 import android.support.design.widget.NavigationView
 import org.fs.architecture.listeners.OnNavigationSelected
 
-class NavigationViewBindingAdapter private constructor() {
+sealed class NavigationViewBindingAdapter {
 
   companion object {
     private val NO_ID = -1

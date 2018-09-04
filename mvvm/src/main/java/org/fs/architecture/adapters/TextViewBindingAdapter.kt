@@ -28,7 +28,7 @@ import org.fs.architecture.listeners.OnSoftKeyboardAction
 import org.fs.architecture.model.ConverterType
 import java.util.*
 
-class TextViewBindingAdapter private constructor() {
+sealed class TextViewBindingAdapter {
 
   companion object {
 

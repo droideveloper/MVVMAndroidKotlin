@@ -22,7 +22,7 @@ import android.support.v7.widget.Toolbar
 import org.fs.architecture.common.CommandType
 import org.fs.architecture.listeners.OnNavigated
 
-class ToolbarBindingAdapter private constructor() {
+sealed class ToolbarBindingAdapter {
 
   companion object {
 

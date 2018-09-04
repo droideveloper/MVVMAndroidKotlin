@@ -22,7 +22,7 @@ import android.support.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.ViewGroup
 
-class ViewGroupBindingAdapter private constructor() {
+sealed class ViewGroupBindingAdapter {
 
   companion object {
 

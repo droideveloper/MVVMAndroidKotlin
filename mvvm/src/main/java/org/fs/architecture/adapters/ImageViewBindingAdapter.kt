@@ -18,20 +18,21 @@ package org.fs.architecture.adapters
 import android.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import org.fs.architecture.model.GlideTargetType
+import org.fs.architecture.util.GlideApp
 
-class ImageViewBindingAdapter private constructor() {
+sealed class ImageViewBindingAdapter {
 
   companion object {
 
     @BindingAdapter(value = ["imageUrl", "placeholder", "error"], requireAll = false)
     @JvmStatic fun viewImageBindUrl(viewImage: ImageView, imageUrl: String?, placeholder: Drawable?, error: Drawable?) {
       if (imageUrl != null) {
-        var request = Glide.with(viewImage.context)
+        var request = GlideApp.with(viewImage)
+            .asBitmap()
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .load(imageUrl)
-            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
         if (placeholder != null) {
           request = request.placeholder(placeholder)
         }
@@ -46,10 +47,10 @@ class ImageViewBindingAdapter private constructor() {
     @BindingAdapter(value = ["imageUrl", "glideTarget"])
     @JvmStatic fun viewImageBindBitmapUrl(viewImage: ImageView, imageUrl: String?, glideTarget: GlideTargetType?) {
       if (imageUrl != null) {
-        val request = Glide.with(viewImage.context)
-            .load(imageUrl)
+        val request = GlideApp.with(viewImage)
             .asBitmap()
-            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .load(imageUrl)
         if (glideTarget != null) {
           val target = glideTarget.targetType(viewImage)
           request.into(target)

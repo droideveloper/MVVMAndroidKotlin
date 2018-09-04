@@ -20,13 +20,11 @@ import android.view.View
 
 abstract class AbstractViewHolder<T>(private val viewDataBinding: ViewDataBinding){
 
-  protected var dataSet: T? = null
   var position: Int = 0
 
   protected fun view(): View = viewDataBinding.root
 
   open fun setVariable(variableId: Int, variable: T) {
-    dataSet = variable
     viewDataBinding.setVariable(variableId, variable)
     viewDataBinding.executePendingBindings()
   }
