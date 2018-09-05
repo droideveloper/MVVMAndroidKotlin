@@ -1,5 +1,5 @@
 /*
- * MVVM Android Kotlin Copyright (C) 2017 Fatih.
+ * MVI Kotlin Copyright (C) 2018 Fatih.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package org.fs.architecture.common
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import android.support.design.widget.BottomSheetDialogFragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
@@ -28,7 +28,7 @@ import dagger.android.support.AndroidSupportInjection
 import org.fs.architecture.model.ViewModelType
 import javax.inject.Inject
 
-abstract class AbstractDialogFragment<VM>: DialogFragment() where VM: ViewModelType {
+abstract class AbstractBottomSheetDialogFragment<VM>: BottomSheetDialogFragment() where VM: ViewModelType {
 
   @Inject lateinit var viewModel: VM
   private lateinit var viewDataBinding: ViewDataBinding
@@ -78,8 +78,8 @@ abstract class AbstractDialogFragment<VM>: DialogFragment() where VM: ViewModelT
   abstract fun attach()
   abstract fun detach()
 
-  open fun supportFragmentManager(): FragmentManager = childFragmentManager
-  open fun stringResource(stringRes: Int): String? = getString(stringRes)
-  open fun isAvailable(): Boolean = isAdded && activity != null
-  open fun finish() = Unit
+  fun supportFragmentManager(): FragmentManager = childFragmentManager
+  fun stringResource(stringRes: Int): String? = getString(stringRes)
+  fun isAvailable(): Boolean = isAdded && activity != null
+  fun finish() = Unit
 }

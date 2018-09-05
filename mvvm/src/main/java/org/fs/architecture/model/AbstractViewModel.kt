@@ -17,4 +17,4 @@ package org.fs.architecture.model
 
 import android.databinding.BaseObservable
 
-abstract class AbstractViewModel<out V>(private val view: V): BaseObservable(), ViewModelType where V: ViewType
+abstract class AbstractViewModel<out V>(protected val view: V): BaseObservable(), ViewModelType where V: ViewType

@@ -18,7 +18,6 @@ package org.fs.architecture.model
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.FragmentManager
-import android.view.View
 
 interface ViewType {
 
@@ -27,9 +26,9 @@ interface ViewType {
 
   fun finish()
   fun dismiss()
-  fun getSupportFragmentManager(): FragmentManager
+  fun supportFragmentManager(): FragmentManager
 
-  fun getStringResource(stringRes: Int): String?
+  fun stringResource(stringRes: Int): String?
   fun isAvailable(): Boolean
-  fun getContext(): Context?
+  fun context(): Context?
 }

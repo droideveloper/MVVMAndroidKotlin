@@ -16,39 +16,48 @@
 package org.fs.architecture.common
 
 import android.content.Context
-import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import org.fs.architecture.model.AbstractViewModel
+import dagger.android.AndroidInjection
 import org.fs.architecture.model.ViewModelType
-import org.fs.architecture.model.ViewType
 import javax.inject.Inject
 
 abstract class AbstractActivity<VM>: AppCompatActivity() where VM: ViewModelType {
 
   @Inject lateinit var viewModel: VM
-  lateinit var viewDataBinding: ViewDataBinding
+  private lateinit var viewDataBinding: ViewDataBinding
+
+  protected abstract val layoutRes: Int
+  protected abstract val BRviewModel: Int
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    AndroidInjection.inject(this)
+    super.onCreate(savedInstanceState)
+    viewDataBinding = DataBindingUtil.setContentView(this, layoutRes)
+    viewDataBinding.setVariable(BRviewModel, viewModel)
+    setUp(savedInstanceState ?: intent.extras)
+  }
 
   override fun onStart() {
     super.onStart()
+    attach()
     viewModel.attach()
   }
 
   override fun onStop() {
+    detach()
     viewModel.detach()
     super.onStop()
   }
 
-  fun getStringResource(stringRes: Int): String? = getString(stringRes)
+  abstract fun setUp(state: Bundle?)
+  abstract fun attach()
+  abstract fun detach()
 
-  fun isAvailable(): Boolean = !isFinishing
-
-  fun getContext(): Context? = this
-
-  fun view(): View? = findViewById(android.R.id.content)
-
-  fun dismiss() = Unit
+  open fun stringResource(stringRes: Int): String? = getString(stringRes)
+  open fun isAvailable(): Boolean = !isFinishing
+  open fun context(): Context? = this
+  open fun dismiss() = Unit
 }

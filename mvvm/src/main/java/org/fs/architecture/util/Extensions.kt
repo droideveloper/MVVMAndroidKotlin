@@ -15,42 +15,17 @@
  */
 package org.fs.architecture.util
 
-import android.util.Log
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.fs.architecture.model.ViewModelType
-import org.fs.architecture.model.ViewType
-import java.io.PrintWriter
-import java.io.StringWriter
+
 
 val String.Companion.EMPTY get() = ""
 val String.Companion.WHITE_SPACE get() = " "
 val String.Companion.NEW_LINE get() = "\n"
-
-fun <T: Any> T.isLogEnabled(): Boolean = false
-
-fun <T: Any> T.getClassTag(): String {
-  val klazz = this.javaClass
-  return klazz.simpleName
-}
-
-fun <T: Any> T.log(msg: String) {
-  log(Log.DEBUG, msg)
-}
-
-fun <T: Any> T.log(error: Throwable) {
-  val str = StringWriter()
-  val ptr = PrintWriter(str)
-  error.printStackTrace(ptr)
-  log(Log.ERROR, str.toString())
-}
-
-fun <T: Any> T.log(level: Int, msg: String) {
-  if (isLogEnabled()) {
-    Log.println(level, getClassTag(), msg)
-  }
-}
 
 fun <T> Observable<T>.async(): Observable<T> = observeOn(AndroidSchedulers.mainThread())
   .subscribeOn(Schedulers.io())
@@ -86,3 +61,5 @@ fun Completable.async(): Completable = subscribeOn(Schedulers.io())
 fun Completable.async(viewModel: ViewModelType?): Completable = async()
   .doOnSubscribe { viewModel?.showProgress = true }
   .doFinally { viewModel?.showProgress = false }
+
+fun ViewGroup.toFactory(): LayoutInflater = LayoutInflater.from(context)

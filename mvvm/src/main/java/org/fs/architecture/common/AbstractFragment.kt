@@ -15,41 +15,58 @@
  */
 package org.fs.architecture.common
 
-import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.view.LayoutInflater
 import android.view.View
-import org.fs.architecture.model.AbstractViewModel
+import android.view.ViewGroup
+import dagger.android.support.AndroidSupportInjection
 import org.fs.architecture.model.ViewModelType
-import org.fs.architecture.model.ViewType
 import javax.inject.Inject
 
 abstract class AbstractFragment<VM>: Fragment() where VM: ViewModelType {
 
   @Inject lateinit var viewModel: VM
-  lateinit var viewDataBinding: ViewDataBinding
+  private lateinit var viewDataBinding: ViewDataBinding
+
+  protected abstract val layoutRes: Int
+  protected abstract val BRviewModel: Int
+
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    viewDataBinding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
+    return viewDataBinding.root
+  }
+
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    AndroidSupportInjection.inject(this)
+    super.onActivityCreated(savedInstanceState)
+    viewDataBinding.setVariable(BRviewModel, viewModel)
+    setUp(savedInstanceState ?: arguments)
+  }
 
   override fun onStart() {
     super.onStart()
+    attach()
     viewModel.attach()
   }
 
   override fun onStop() {
+    detach()
     viewModel.detach()
     super.onStop()
   }
 
-  fun getSupportFragmentManager(): FragmentManager = childFragmentManager
+  abstract fun setUp(state: Bundle?)
+  abstract fun attach()
+  abstract fun detach()
 
-  fun getStringResource(stringRes: Int): String? = getString(stringRes)
+  open fun supportFragmentManager(): FragmentManager = childFragmentManager
+  open fun stringResource(stringRes: Int): String? = getString(stringRes)
+  open fun isAvailable(): Boolean = isAdded && activity != null
 
-  fun isAvailable(): Boolean = isAdded && activity != null
-
-  fun view(): View? = view
-
-  fun finish() = Unit
-  fun dismiss() = Unit
+  open fun finish() = Unit
+  open fun dismiss() = Unit
 }
