@@ -1,17 +1,22 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-  ext.kotlinVersion = '1.2.61'
-  ext.androidGradleVersion = "3.1.4"
-  ext.supportVersion = "27.1.1"
-  ext.dependenciesVersion = '1.2'
-  ext.daggerVersion = '2.16'
-  ext.glideVersion = '4.7.1'
-  ext.gsonVersion = '2.8.1'
-  ext.retrofitVersion = '2.4.0'
-  ext.androidRxJava2Version = '2.0.2'
-  ext.rxJava2Version = '2.1.9'
-  ext.okHttpInterceptorVersion = '3.6.0'
+  ext {
+    KOTLIN_VERSION = '1.2.61'
+    GRADLE_TOOLS_VERSION = "3.1.4"
+    ANDROID_SUPPORT_VERSION = "27.1.1"
+    DEPENDENCY_VERSION = '1.2'
+    DAGGER_VERSION = '2.16'
+    GLIDE_VERSION = '4.7.1'
+    GSON_VERSION = '2.8.1'
+    RETROFIT_VERSION = '2.4.0'
+    ANDROID_RX_JAVA_VERSION = '2.0.2'
+    RX_JAVA_VERSION = '2.1.9'
+    HTTP_VERSION = '3.6.0'
+    UIBINDING_VERSION = "0.0.11"
+    RX_PREFERENCE_VERSION = "0.0.4"
+    ROOM_VERSION = '1.1.1'
+  }
 
   repositories {
     google()
@@ -19,10 +24,10 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.android.tools.build:gradle:$androidGradleVersion"
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-    classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$dependenciesVersion"
-    classpath "com.github.dcendents:android-maven-plugin:$dependenciesVersion"
+    classpath "com.android.tools.build:gradle:$GRADLE_TOOLS_VERSION"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
+    classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$DEPENDENCY_VERSION"
+    classpath "com.github.dcendents:android-maven-plugin:$DEPENDENCY_VERSION"
 
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
