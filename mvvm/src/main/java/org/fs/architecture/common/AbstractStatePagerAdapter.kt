@@ -38,5 +38,6 @@ abstract class AbstractStatePagerAdapter<T>(fragmentManager: FragmentManager, pr
   open fun register() = dataSet.addOnListChangedCallback(dataObserver)
   open fun unregister() = dataSet.removeOnListChangedCallback(dataObserver)
 
+  open fun itemAt(position: Int): T = dataSet[position]
   override fun getCount(): Int = dataSet.size
 }
