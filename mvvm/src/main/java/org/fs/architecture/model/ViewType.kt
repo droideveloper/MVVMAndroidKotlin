@@ -22,16 +22,11 @@ import android.view.View
 
 interface ViewType {
 
-  fun showProgress()
-  fun hideProgress()
-
-  fun showError(error: String, action: String? = null, callback: View.OnClickListener? = null)
-
   fun startActivity(intent: Intent?)
   fun startActivityForResult(intent: Intent?, requestCode: Int)
 
-  // fun requestPermissions(permissions: Array<in String>, requestCode: Int)
   fun finish()
+  fun dismiss()
   fun getSupportFragmentManager(): FragmentManager
 
   fun getStringResource(stringRes: Int): String?

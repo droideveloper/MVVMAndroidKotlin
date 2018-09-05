@@ -13,8 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fs.architecture.model
+package org.fs.architecture.model 
 
-import android.databinding.BaseObservable
+interface ViewModelType {
 
-abstract class AbstractViewModel<out V>(private val view: V): BaseObservable(), ViewModelType where V: ViewType
+  var showProgress: Boolean
+
+  fun attach()
+  fun detach()
+}
