@@ -22,8 +22,6 @@ abstract class AbstractViewHolder<T>(private val viewDataBinding: ViewDataBindin
 
   var position: Int = 0
 
-  protected fun view(): View = viewDataBinding.root
-
   open fun setVariable(variableId: Int, variable: T) {
     viewDataBinding.setVariable(variableId, variable)
     viewDataBinding.executePendingBindings()

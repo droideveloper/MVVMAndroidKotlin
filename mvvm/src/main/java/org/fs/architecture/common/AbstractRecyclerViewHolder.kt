@@ -17,11 +17,8 @@ package org.fs.architecture.common
 
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
-import android.view.View
 
 abstract class AbstractRecyclerViewHolder<T>(protected val viewDataBinding: ViewDataBinding): RecyclerView.ViewHolder(viewDataBinding.root) {
-
-  protected fun view(): View = itemView
 
   open fun setVariable(variableId: Int, variable: T) {
     viewDataBinding.setVariable(variableId, variable)
