@@ -18,6 +18,7 @@ package org.fs.architecture.model
 interface ViewModelType {
 
   var showProgress: Boolean
+  var errorMessage: String
 
   fun attach()
   fun detach()
