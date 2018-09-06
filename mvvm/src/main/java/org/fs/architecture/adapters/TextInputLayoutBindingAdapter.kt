@@ -69,12 +69,12 @@ sealed class TextInputLayoutBindingAdapter {
 
     @JvmStatic private fun textView(viewGroup: ViewGroup): TextView? {
       (0..viewGroup.childCount)
-        .map { viewGroup.getChildAt(it) }
-        .forEach {
-          if (it is EditText) {
-            return it
-          } else if (it is ViewGroup) {
-            return textView(it)
+        .map(viewGroup::getChildAt)
+        .forEach { view ->
+          if (view is EditText) {
+            return view
+          } else if (view is ViewGroup) {
+            return textView(view)
           }
         }
       return null

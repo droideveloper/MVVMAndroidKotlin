@@ -28,32 +28,34 @@ sealed class ImageViewBindingAdapter {
 
     @BindingAdapter(value = ["imageUrl", "placeholder", "error"], requireAll = false)
     @JvmStatic fun viewImageBindUrl(viewImage: ImageView, imageUrl: String?, placeholder: Drawable?, error: Drawable?) {
-      if (imageUrl != null) {
+      imageUrl?.let { url ->
         var request = GlideApp.with(viewImage)
-            .asBitmap()
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .load(imageUrl)
-        if (placeholder != null) {
-          request = request.placeholder(placeholder)
+          .asBitmap()
+          .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+          .load(url)
+
+        placeholder?.let { holder ->
+          request = request.placeholder(holder)
         }
-        if (error != null) {
-          request = request.error(error)
+
+        error?.let { err ->
+          request = request.error(err)
         }
         request.dontAnimate()
-          .into(viewImage)
+            .into(viewImage)
       }
     }
 
     @BindingAdapter(value = ["imageUrl", "glideTarget"])
     @JvmStatic fun viewImageBindBitmapUrl(viewImage: ImageView, imageUrl: String?, glideTarget: GlideTargetType?) {
-      if (imageUrl != null) {
+      imageUrl?.let { url ->
         val request = GlideApp.with(viewImage)
-            .asBitmap()
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .load(imageUrl)
-        if (glideTarget != null) {
-          val target = glideTarget.targetType(viewImage)
-          request.into(target)
+          .asBitmap()
+          .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+          .load(url)
+
+        glideTarget?.let { target ->
+          request.into(target.targetType(viewImage))
         }
       }
     }

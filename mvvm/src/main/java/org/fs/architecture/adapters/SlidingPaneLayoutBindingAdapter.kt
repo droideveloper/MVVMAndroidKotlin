@@ -28,8 +28,7 @@ sealed class SlidingPaneLayoutBindingAdapter {
   companion object {
 
     @BindingAdapter(value = ["open"])
-    @JvmStatic
-    fun slidingPaneLayoutBindOpen(slidingPaneLayout: SlidingPaneLayout, open: Boolean) {
+    @JvmStatic fun slidingPaneLayoutBindOpen(slidingPaneLayout: SlidingPaneLayout, open: Boolean) {
       if (slidingPaneLayout.isOpen != open) {
         if (open) {
           slidingPaneLayout.openPane()
@@ -40,15 +39,13 @@ sealed class SlidingPaneLayoutBindingAdapter {
     }
 
     @InverseBindingAdapter(attribute = "open", event = "openAttrChanged")
-    @JvmStatic
-    fun slidingPaneLayoutBindOpen(
+    @JvmStatic fun slidingPaneLayoutBindOpen(
         slidingPaneLayout: SlidingPaneLayout): Boolean = slidingPaneLayout.isOpen
 
     @BindingAdapter(
         value = ["slided", "openState", "openAttrChanged"],
         requireAll = false)
-    @JvmStatic
-    fun slidingPaneLayoutBindSlidedListener(slidingPaneLayout: SlidingPaneLayout,
+    @JvmStatic fun slidingPaneLayoutBindSlidedListener(slidingPaneLayout: SlidingPaneLayout,
         slided: OnLayoutSlided?, openStateChanged: OnLayoutOpenStateChanged?,
         openAttr: InverseBindingListener?) {
       var slideListener: SlidingPaneLayout.PanelSlideListener? = null

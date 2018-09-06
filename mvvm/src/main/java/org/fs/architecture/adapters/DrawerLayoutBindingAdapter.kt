@@ -32,8 +32,7 @@ sealed class DrawerLayoutBindingAdapter {
   companion object {
 
     @BindingAdapter(value = ["open"])
-    @JvmStatic
-    fun drawerLayoutBindOpen(drawerLayout: DrawerLayout, open: Boolean) {
+    @JvmStatic fun drawerLayoutBindOpen(drawerLayout: DrawerLayout, open: Boolean) {
       val currentState = drawerOpen(drawerLayout)
       if (currentState) {
         if (!open) {
@@ -47,13 +46,11 @@ sealed class DrawerLayoutBindingAdapter {
     }
 
     @InverseBindingAdapter(attribute = "open", event = "openAttrChanged")
-    @JvmStatic
-    fun drawerLayoutBindOpen(drawerLayout: DrawerLayout): Boolean = drawerOpen(drawerLayout)
+    @JvmStatic fun drawerLayoutBindOpen(drawerLayout: DrawerLayout): Boolean = drawerOpen(drawerLayout)
 
     @BindingAdapter(
         value = ["slided", "openOrClose", "stateChanged", "openAttrChanged"], requireAll = false)
-    @JvmStatic
-    fun drawableLayoutBindListener(drawerLayout: DrawerLayout, slided: OnLayoutSlided?,
+    @JvmStatic fun drawableLayoutBindListener(drawerLayout: DrawerLayout, slided: OnLayoutSlided?,
         openStateChanged: OnLayoutOpenStateChanged?, stateChanged: OnLayoutStateChanged?,
         openAttrListener: InverseBindingListener?) {
       var newListener: DrawerLayout.DrawerListener? = null

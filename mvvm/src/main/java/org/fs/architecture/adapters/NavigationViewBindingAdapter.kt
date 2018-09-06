@@ -19,6 +19,7 @@ import android.databinding.BindingAdapter
 import android.databinding.InverseBindingAdapter
 import android.databinding.InverseBindingListener
 import android.support.design.widget.NavigationView
+import android.view.MenuItem
 import org.fs.architecture.listeners.OnNavigationSelected
 
 sealed class NavigationViewBindingAdapter {
@@ -31,9 +32,9 @@ sealed class NavigationViewBindingAdapter {
       if (menuItemRes != NO_ID) {
         val menu = viewNavigation.menu
         (0..menu.size())
-            .map { menu.getItem(it) }
-            .filter { it != null && it.itemId == menuItemRes }
-            .forEach { it.isChecked = true }
+          .map(menu::getItem)
+          .filter { it != null && it.itemId == menuItemRes }
+          .forEach { it.isChecked = true }
       }
     }
 
@@ -41,9 +42,9 @@ sealed class NavigationViewBindingAdapter {
     @JvmStatic fun viewNavigationBindSelectedItem(viewNavigation: NavigationView): Int {
       val menu = viewNavigation.menu
       (0..menu.size())
-          .map { menu.getItem(it) }
-          .filter { it != null && it.isChecked }
-          .forEach { return it.itemId }
+        .map(menu::getItem)
+        .filter(MenuItem::isChecked)
+        .forEach { return it.itemId }
       return NO_ID
     }
 
@@ -54,7 +55,7 @@ sealed class NavigationViewBindingAdapter {
           navigationSelected?.navigationSelected(item)
           item.isChecked = true
           selectedItemAttr?.onChange()
-          true
+          return@setNavigationItemSelectedListener true
         }
       } else {
         viewNavigation.setNavigationItemSelectedListener(null)
