@@ -24,35 +24,16 @@ import org.fs.architecture.R
 sealed class FrameLayoutBindingAdapter {
 
   companion object {
-    /*
-    @BindingAdapter(value = *arrayOf("bindings:fragment", "bindings:fragmentManager", "bindings:enterAnim", "bindings:exitAnim", "bindings:reverse"))
-    @JvmStatic fun frameLayoutBindFragment(frameLayout: FrameLayout, fragment: Fragment?, fragmentManager: FragmentManager?,
-        @AnimRes enter: Int = android.R.anim.fade_in, @AnimRes exit: Int = android.R.anim.fade_out, reverse: Boolean = false) {
-      if (frameLayout.id == -1) {
-        frameLayout.id = R.id.viewContentLayout
-      }
-      if (fragment != null && fragmentManager != null) {
-        var trans = fragmentManager.beginTransaction()
-        if (reverse) {
-          trans.setCustomAnimations(exit, enter)
-        } else {
-          trans.setCustomAnimations(enter, exit)
-        }
-        trans.replace(frameLayout.id, fragment)
-        trans.commit()
-      }
-    }
-    */
 
     @BindingAdapter(value = ["fragment", "fragmentManager"])
     @JvmStatic fun frameLayoutBindFragment(frameLayout: FrameLayout, fragment: Fragment?, fragmentManager: FragmentManager?) {
-      if (frameLayout.id == -1) {
-        frameLayout.id = R.id.viewContentLayout
-      }
-      if (fragment != null && fragmentManager != null) {
-        val trans = fragmentManager.beginTransaction()
+      frameLayout.id = if (frameLayout.id == -1) R.id.viewContentLayout else frameLayout.id
+      fragment?.let { frag ->
+        fragmentManager?.let { manager ->
+          fragmentManager.beginTransaction()
             .replace(frameLayout.id, fragment)
-        trans.commit()
+            .commit()
+        }
       }
     }
   }

@@ -18,23 +18,17 @@ package org.fs.architecture.model
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.FragmentManager
-import android.view.View
 
 interface ViewType {
-
-  fun showProgress()
-  fun hideProgress()
-
-  fun showError(error: String, action: String? = null, callback: View.OnClickListener? = null)
 
   fun startActivity(intent: Intent?)
   fun startActivityForResult(intent: Intent?, requestCode: Int)
 
-  // fun requestPermissions(permissions: Array<in String>, requestCode: Int)
   fun finish()
-  fun getSupportFragmentManager(): FragmentManager
+  fun dismiss()
+  fun supportFragmentManager(): FragmentManager
 
-  fun getStringResource(stringRes: Int): String?
+  fun stringResource(stringRes: Int): String?
   fun isAvailable(): Boolean
-  fun getContext(): Context?
+  fun context(): Context?
 }

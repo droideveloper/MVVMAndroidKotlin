@@ -15,96 +15,58 @@
  */
 package org.fs.architecture.common
 
-import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.view.LayoutInflater
 import android.view.View
-import org.fs.architecture.model.AbstractViewModel
-import org.fs.architecture.model.ViewType
+import android.view.ViewGroup
+import dagger.android.support.AndroidSupportInjection
+import org.fs.architecture.model.ViewModelType
 import javax.inject.Inject
 
-abstract class AbstractFragment<VM>: Fragment() where VM: AbstractViewModel<ViewType> {
+abstract class AbstractFragment<VM>: Fragment() where VM: ViewModelType {
 
   @Inject lateinit var viewModel: VM
-  lateinit var viewDataBinding: ViewDataBinding
+  private lateinit var viewDataBinding: ViewDataBinding
 
-  override fun onPause() {
-    viewModel.onPause()
-    super.onPause()
+  protected abstract val layoutRes: Int
+  protected abstract val BRviewModel: Int
+
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    viewDataBinding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
+    return viewDataBinding.root
   }
 
-  override fun onResume() {
-    super.onResume()
-    viewModel.onResume()
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    AndroidSupportInjection.inject(this)
+    super.onActivityCreated(savedInstanceState)
+    viewDataBinding.setVariable(BRviewModel, viewModel)
+    setUp(savedInstanceState ?: arguments)
   }
 
   override fun onStart() {
     super.onStart()
-    viewModel.onStart()
+    attach()
+    viewModel.attach()
   }
 
   override fun onStop() {
-    viewModel.onStop()
+    detach()
+    viewModel.detach()
     super.onStop()
   }
 
-  override fun onDestroy() {
-    viewModel.onDestroy()
-    super.onDestroy()
-  }
+  abstract fun setUp(state: Bundle?)
+  abstract fun attach()
+  abstract fun detach()
 
-  override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-    viewModel.storeState(outState)
-  }
+  open fun supportFragmentManager(): FragmentManager = childFragmentManager
+  open fun stringResource(stringRes: Int): String? = getString(stringRes)
+  open fun isAvailable(): Boolean = isAdded && activity != null
 
-  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
-      grantResults: IntArray) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    viewModel.requestPermissionsResult(requestCode, permissions, grantResults)
-  }
-
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    viewModel.activityResult(requestCode, resultCode, data)
-  }
-
-  open fun showProgress() {
-    throw RuntimeException("you need to implement this method in super type")
-  }
-
-  open fun hideProgress() {
-    throw RuntimeException("you need to implement this method in super type")
-  }
-
-  open fun showError(error: String, action: String? = null,
-      callback: View.OnClickListener? = null) {
-    val view = view();
-    if (view != null) {
-      var snackbar = Snackbar.make(view, error, Snackbar.LENGTH_LONG)
-      if (action != null) {
-        snackbar = snackbar.setAction(action) { v: View ->
-          callback?.onClick(v)
-        }
-        snackbar.show()
-      } else {
-        snackbar.show()
-      }
-    }
-  }
-
-  fun getSupportFragmentManager(): FragmentManager = childFragmentManager
-
-  fun finish() {
-    throw RuntimeException("you can not finish this fragment")
-  }
-
-  fun getStringResource(stringRes: Int): String? = getString(stringRes)
-
-  fun isAvailable(): Boolean = isAdded && activity != null
-
-  fun view(): View? = view
+  open fun finish() = Unit
+  open fun dismiss() = Unit
 }

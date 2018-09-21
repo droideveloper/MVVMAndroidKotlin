@@ -15,27 +15,6 @@
  */
 package org.fs.architecture.model
 
-import android.content.Intent
 import android.databinding.BaseObservable
-import android.os.Bundle
-import android.view.MenuItem
 
-abstract class AbstractViewModel<out V>(private val view: V): BaseObservable() where V: ViewType {
-
-  open fun onCreate() {}
-  open fun onResume() {}
-  open fun onStart() {}
-  open fun onPause() {}
-  open fun onStop() {}
-  open fun onDestroy() {}
-
-  open fun onBackPressed() {}
-
-  open fun restoreState(bundle: Bundle?) {}
-  open fun storeState(bundle: Bundle?) {}
-
-  open fun activityResult(requestCode: Int, resultCode: Int, data: Intent?) {}
-  open fun requestPermissionsResult(requestCode: Int, permissions: Array<out String>, grants: IntArray) {}
-
-  open fun onOptionsItemSelected(item: MenuItem): Boolean = false
-}
+abstract class AbstractViewModel<out V>(protected val view: V): BaseObservable(), ViewModelType where V: ViewType

@@ -19,12 +19,11 @@ import android.databinding.DataBindingUtil
 import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.ViewGroup
+import org.fs.architecture.util.toFactory
 
-abstract class AbstractRecyclerViewAdapter<T>(private val dataSet: ObservableList<T>): RecyclerView.Adapter<AbstractRecyclerViewHolder<T>>() {
-
-  private var factory: LayoutInflater? = null
+abstract class AbstractRecyclerViewAdapter<T, VH>(private val dataSet: ObservableList<T>)
+  : RecyclerView.Adapter<VH>() where VH: AbstractRecyclerViewHolder<T>  {
 
   private val dataSetObserver = object: ObservableList.OnListChangedCallback<ObservableList<T>>() {
     override fun onChanged(sender: ObservableList<T>?) = notifyDataSetChanged()
@@ -44,38 +43,21 @@ abstract class AbstractRecyclerViewAdapter<T>(private val dataSet: ObservableLis
   }
 
   override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
-    super.onDetachedFromRecyclerView(recyclerView)
     dataSet.removeOnListChangedCallback(dataSetObserver)
+    super.onDetachedFromRecyclerView(recyclerView)
   }
 
-  override fun onBindViewHolder(viewHolder: AbstractRecyclerViewHolder<T>, position: Int) {
-    val item = itemAt(position)
-    viewHolder.setVariable(bindingRes(), item)
+  override fun onBindViewHolder(viewHolder: VH, position: Int) {
+    viewHolder.setVariable(bindingRes(), dataSet[position])
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbstractRecyclerViewHolder<T> {
-    val factory = factory(parent)
-    if (factory != null) {
-      val viewDataBinding = DataBindingUtil.inflate<ViewDataBinding>(factory, layoutRes(viewType), parent, false)
-      return recreateViewHolder(viewDataBinding, viewType)
-    } else {
-      throw RuntimeException("you can not have instance of layout inflater factory")
-    }
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+    val viewDataBinding = DataBindingUtil.inflate<ViewDataBinding>(parent.toFactory(), layoutRes(viewType), parent, false)
+    return onCreateViewHolder(viewDataBinding, viewType)
   }
 
-  abstract fun recreateViewHolder(viewDataBinding: ViewDataBinding, viewType: Int): AbstractRecyclerViewHolder<T>
+  abstract fun onCreateViewHolder(viewDataBinding: ViewDataBinding, viewType: Int): VH
   abstract fun layoutRes(viewType: Int): Int
   abstract fun bindingRes(): Int
-
   override fun getItemCount(): Int = dataSet.size
-  fun itemAt(position: Int): T = dataSet[position]
-
-  fun factory(parent: ViewGroup?): LayoutInflater? {
-    if (factory == null) {
-      if (parent != null) {
-        factory = LayoutInflater.from(parent.context)
-      }
-    }
-    return factory
-  }
 }

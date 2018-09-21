@@ -20,13 +20,14 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
 import org.fs.architecture.common.AbstractRecyclerViewAdapter
+import org.fs.architecture.common.AbstractRecyclerViewHolder
 
 sealed class RecyclerViewBindingAdapter {
 
   companion object {
 
     @BindingAdapter("itemSource")
-    @JvmStatic fun <T> recyclerViewBindItemSource(viewRecycler: RecyclerView, adapter: AbstractRecyclerViewAdapter<T>?) {
+    @JvmStatic fun <T, VH> recyclerViewBindItemSource(viewRecycler: RecyclerView, adapter: AbstractRecyclerViewAdapter<T, VH>?) where VH: AbstractRecyclerViewHolder<T> {
       viewRecycler.adapter = adapter
     }
 

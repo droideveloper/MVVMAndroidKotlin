@@ -30,9 +30,7 @@ import org.fs.architecture.listeners.OnPageSelected
 import org.fs.architecture.model.PropertyInfo
 import org.fs.architecture.util.Properties
 
-
 sealed class ViewPagerBindingAdapter {
-
 
   companion object {
 

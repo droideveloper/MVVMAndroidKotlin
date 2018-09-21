@@ -30,18 +30,14 @@ abstract class AbstractStatePagerAdapter<T>(fragmentManager: FragmentManager, pr
     override fun onItemRangeRemoved(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) = notifyDataSetChanged()
   }
 
-  override fun getItem(position: Int): Fragment {
-    val viewType = viewTypeAt(position)
-    val item = itemAt(position)
-    return createFragment(viewType, item)
-  }
+  override fun getItem(position: Int): Fragment = createFragment(viewTypeAt(position), dataSet[position])
 
   abstract fun viewTypeAt(position: Int): Int
   abstract fun createFragment(viewType: Int, item: T): Fragment
 
-  fun register() = dataSet.addOnListChangedCallback(dataObserver)
-  fun unregister() = dataSet.removeOnListChangedCallback(dataObserver)
+  open fun register() = dataSet.addOnListChangedCallback(dataObserver)
+  open fun unregister() = dataSet.removeOnListChangedCallback(dataObserver)
 
-  fun itemAt(position: Int): T = dataSet[position]
+  open fun itemAt(position: Int): T = dataSet[position]
   override fun getCount(): Int = dataSet.size
 }

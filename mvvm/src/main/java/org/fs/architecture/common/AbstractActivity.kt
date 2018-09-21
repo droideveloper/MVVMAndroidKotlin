@@ -16,89 +16,48 @@
 package org.fs.architecture.common
 
 import android.content.Context
-import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import org.fs.architecture.model.AbstractViewModel
-import org.fs.architecture.model.ViewType
+import dagger.android.AndroidInjection
+import org.fs.architecture.model.ViewModelType
 import javax.inject.Inject
 
-abstract class AbstractActivity<VM>: AppCompatActivity() where VM: AbstractViewModel<ViewType> {
+abstract class AbstractActivity<VM>: AppCompatActivity() where VM: ViewModelType {
 
   @Inject lateinit var viewModel: VM
-  @Inject lateinit var viewDataBinding: ViewDataBinding
+  private lateinit var viewDataBinding: ViewDataBinding
 
-  override fun onPause() {
-    viewModel.onPause()
-    super.onPause()
-  }
+  protected abstract val layoutRes: Int
+  protected abstract val BRviewModel: Int
 
-  override fun onResume() {
-    super.onResume()
-    viewModel.onResume()
+  override fun onCreate(savedInstanceState: Bundle?) {
+    AndroidInjection.inject(this)
+    super.onCreate(savedInstanceState)
+    viewDataBinding = DataBindingUtil.setContentView(this, layoutRes)
+    viewDataBinding.setVariable(BRviewModel, viewModel)
+    setUp(savedInstanceState ?: intent.extras)
   }
 
   override fun onStart() {
     super.onStart()
-    viewModel.onStart()
+    attach()
+    viewModel.attach()
   }
 
   override fun onStop() {
-    viewModel.onStop()
+    detach()
+    viewModel.detach()
     super.onStop()
   }
 
-  override fun onDestroy() {
-    viewModel.onDestroy()
-    super.onDestroy()
-  }
+  abstract fun setUp(state: Bundle?)
+  abstract fun attach()
+  abstract fun detach()
 
-  override fun onSaveInstanceState(outState: Bundle?) {
-    super.onSaveInstanceState(outState)
-    viewModel.storeState(outState)
-  }
-
-  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    viewModel.requestPermissionsResult(requestCode, permissions, grantResults)
-  }
-
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    viewModel.activityResult(requestCode, resultCode, data)
-  }
-
-  open fun showProgress() {
-    throw RuntimeException("you need to implement this method in super type")
-  }
-
-  open fun hideProgress() {
-    throw RuntimeException("you need to implement this method in super type")
-  }
-
-  open fun showError(error: String, action: String? = null, callback: View.OnClickListener? = null) {
-    val view = view();
-    if (view != null) {
-      var snackbar = Snackbar.make(view, error, Snackbar.LENGTH_LONG)
-      if (action != null) {
-        snackbar = snackbar.setAction(action) { v: View ->
-          callback?.onClick(v)
-        }
-        snackbar.show()
-      } else {
-        snackbar.show()
-      }
-    }
-  }
-
-  fun getStringResource(stringRes: Int): String? = getString(stringRes)
-
-  fun isAvailable(): Boolean = !isFinishing
-
-  fun getContext(): Context? = this
-
-  fun view(): View? = findViewById(android.R.id.content)
+  open fun stringResource(stringRes: Int): String? = getString(stringRes)
+  open fun isAvailable(): Boolean = !isFinishing
+  open fun context(): Context? = this
+  open fun dismiss() = Unit
 }

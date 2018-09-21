@@ -18,11 +18,11 @@ package org.fs.architecture.common
 import android.os.Handler
 import android.os.Looper
 
-class ThreadManager private constructor() {
+sealed class ThreadManager {
 
   companion object {
     private val handler = Handler(Looper.getMainLooper())
-    private const val defaultDelay = 300L
+    private const val defaultDelay = 500L
 
     fun runOnUiThread(task: Runnable) = handler.post(task)
     fun runOnUiThreadDelayed(task: Runnable, delay: Long = defaultDelay) = handler.postDelayed(task, delay)
