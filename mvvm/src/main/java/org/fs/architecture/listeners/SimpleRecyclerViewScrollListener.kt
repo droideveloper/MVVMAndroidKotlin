@@ -19,6 +19,6 @@ import android.support.v7.widget.RecyclerView
 
 open class SimpleRecyclerViewScrollListener: RecyclerView.OnScrollListener() {
 
-  override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {}
-  override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {}
+  override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {}
+  override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {}
 }
